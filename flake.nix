@@ -34,6 +34,7 @@
               lifnot ~/.config/nvim .config/nvim
               lifnot ~/.config/yazi .config/yazi
               lifnot ~/.config/kitty .config/kitty
+              lifnot ~/.config/lazygit .config/lazygit
             '';
 
             workspaceHook = '''';
