@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/release-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    shell.url = "path:/home/alexv/Downloads/home-shell-flake.nix";
+    shell.url = "github:EnergoStalin/home-shell-flake.nix";
   };
   outputs = { self, nixpkgs, nixpkgs-unstable, shell }:
     let
@@ -26,7 +26,7 @@
           EDITOR = "nvim";
           VISUAL = "nvim";
 
-          zshrc = (shell.shellInit {
+          zshrc = (shell.zshInit {
             homeInitHook = ''
               mkdir -p .config .local/share
               lifnot ~/.config/starship.toml .config/starship.toml
