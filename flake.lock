@@ -1,0 +1,57 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1744492897,
+        "narHash": "sha256-qqKO4FOo/vPmNIaRPcLqwfudUlQ29iNdI1IbCZfjmxs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "86484f6076aac9141df2bfcddbf7dcfce5e0c6bb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "release-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1744463964,
+        "narHash": "sha256-LWqduOgLHCFxiTNYi3Uj5Lgz0SR+Xhw3kr/3Xd0GPTM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2631b0b7abcea6e640ce31cd78ea58910d31e650",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "shell": "shell"
+      }
+    },
+    "shell": {
+      "locked": {
+        "lastModified": 1744517276,
+        "narHash": "sha256-zMiq/dM3E+ERKWjVBg0NkQXR0YES5U9PWLcMCmFiSEQ=",
+        "path": "/home/alexv/Downloads/home-shell-flake.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/alexv/Downloads/home-shell-flake.nix",
+        "type": "path"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
