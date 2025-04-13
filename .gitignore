@@ -1,2 +1,7 @@
 .home
 gcroot*
+
+.terraform/
+.secrets.env
+
+terraform.tfstate*

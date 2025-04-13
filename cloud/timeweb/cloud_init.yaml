@@ -1,0 +1,67 @@
+#cloud-config
+package_update: true
+packages:
+  - rclone
+
+write_files:
+  - path: /etc/systemd/system/writeback.service
+    permissions: '0600'
+    content: |
+      [Unit]
+      Description=Writeback to bucket
+      DefaultDependencies=no
+      Before=shutdown.target
+
+      [Service]
+      Type=oneshot
+      ExecStart=rclone copy . s3:${BUCKET_NAME}/saves
+      WorkingDirectory=/services/factorio-server/factorio/saves
+      RemainAfterExit=true
+
+      [Install]
+      WantedBy=shutdown.target
+  - path: /etc/systemd/system/compose.service
+    permissions: '0600'
+    content: |
+      [Unit]
+      Description=Run compose
+      Requires=docker.service
+      After=docker.service
+
+      [Service]
+      Type=oneshot
+      ExecStart=docker compose up -d
+      WorkingDirectory=/services/factorio-server
+
+      [Install]
+      WantedBy=multi-user.target
+  - path: /root/.config/rclone/rclone.conf
+    permissions: '0600'
+    content: |
+      [s3]
+      type = s3
+      provider = Other
+      access_key_id = ${AWS_ACCESS_KEY_ID}
+      secret_access_key = ${AWS_SECRET_KEY_ID}
+      endpoint = ${AWS_ENDPOINT}
+  - path: /services/factorio-server/docker-compose.yaml
+    permissions: '0600'
+    content: |
+      services:
+        factorio:
+          image: factoriotools/factorio:${FACTORIO_VERSION}
+          ports:
+            - "34197:34197/udp"
+            - "27015:27015/tcp"
+          volumes:
+            - ./factorio:/factorio
+          environment:
+            GENERATE_NEW_SAVE: false
+          restart: unless-stopped
+          stdin_open: true
+          tty: true
+runcmd:
+  - systemctl daemon-reload
+  - systemctl enable writeback.service compose.service
+  - mkdir -p /services/factorio-server/factorio
+  - rclone copy s3:${BUCKET_NAME} /services/factorio-server/factorio
